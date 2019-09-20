@@ -74,9 +74,9 @@ class ResList(Resource):
         tag = args['tag']
         name = args['name']
         stage = args['stage']
-        question_model = ResourceModel(name=name, tag=tag, type=type, stage=stage)
-        question_model.author = 'zc'
-        db.session.add(question_model)
+        res = ResourceModel(name=name, tag=tag, type=type, stage=stage)
+        res.author = UserModel.query.filter_by(username='zhangchi').first()
+        db.session.add(res)
         db.session.commit()
         return 'ok', 200
 
