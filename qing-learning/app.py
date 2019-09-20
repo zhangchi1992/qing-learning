@@ -19,7 +19,17 @@ db.init_app(app)
 class Res(Resource):
     def get(self, res_id):
         res = ResourceModel.query.get(res_id)
-        return res
+        info[res.id] = {
+            'id': res.id,
+            'author_id': res.author_id,
+            'create_time': res.create_time,
+            'pageviews': res.pageviews,
+            'name': res.name,
+            'type': res.type,
+            'tag': res.tag,
+            'stage': res.stage,
+        }
+        return info
 
     def delete(self, res_id):
         res = ResourceModel.query.filter(ResourceModel.id == res_id).first()
@@ -43,7 +53,6 @@ class ResList(Resource):
                 'tag': res.tag,
                 'stage': res.stage,
             }
-        print info
         return info
 
     def post(self):
