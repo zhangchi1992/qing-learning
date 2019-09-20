@@ -65,7 +65,7 @@ api.add_resource(ResList, '/api/res')
 api.add_resource(Res, '/api/res/<res_id>')
 
 api.add_resource(ComList, '/api/coms')
-api.add_resource(Comment, '/api/com/<com_id>')
+api.add_resource(Com, '/api/com/<com_id>')
 
 
 @app.route('/')
