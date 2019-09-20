@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 from flask_migrate import Migrate,MigrateCommand
-from zlktqa import app
+from app import app
 from flask_script import Manager
 from exts import db
 import config
