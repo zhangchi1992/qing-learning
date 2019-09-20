@@ -20,6 +20,8 @@ class Res(Resource):
     def get(self, res_id):
         info = {}
         res = ResourceModel.query.get(res_id)
+        if not res:
+            return {}
         info[res.id] = {
             'id': res.id,
             'author_id': res.author_id,
