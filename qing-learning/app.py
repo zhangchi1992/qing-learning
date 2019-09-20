@@ -37,7 +37,7 @@ class Res(Resource):
         return info
 
     def delete(self, res_id):
-        res = ResourceModel.query.filter(ResourceModel.id == res_id).first()
+        res = ResourceModel.query.get(res_id)
         db.session.delete(res)
         db.session.commit()
         return 'ok', 200
@@ -46,11 +46,13 @@ class Res(Resource):
 class ResList(Resource):
     def get(self):
         all_res = ResourceModel.query.all()
+        author_id = res.author_id
+        author = UserModel.query.get(author_id).username
         info = {}
         for res in all_res:
             info[res.id] = {
                 'id': res.id,
-                'author_id': res.author_id,
+                'author': author,
                 'create_time': res.create_time,
                 'pageviews': res.pageviews,
                 'name': res.name,
