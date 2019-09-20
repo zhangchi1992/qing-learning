@@ -8,12 +8,18 @@ from forms import RegistForm
 from models import UserModel,QuestionModel,AnswerModel,CommentModel,ResourceModel
 from decorators import login_required
 from sqlalchemy import or_
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, parser
 
 app = Flask(__name__)
 app.config.from_object(config)
 api = Api(app)
 db.init_app(app)
+
+parser = reqparse.RequestParser()
+parser.add_argument('type', type=str)
+parser.add_argument('tag', type=str)
+parser.add_argument('name', type=str)
+parser.add_argument('stage', type=str)
 
 
 class Res(Resource):
