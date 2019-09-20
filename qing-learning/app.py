@@ -46,10 +46,10 @@ class Res(Resource):
 class ResList(Resource):
     def get(self):
         all_res = ResourceModel.query.all()
-        author_id = res.author_id
-        author = UserModel.query.get(author_id).username
         info = {}
         for res in all_res:
+            author_id = res.author_id
+            author = UserModel.query.get(author_id).username
             info[res.id] = {
                 'id': res.id,
                 'author': author,
@@ -69,7 +69,7 @@ class ResList(Resource):
         name = args['name']
         stage = args['stage']
         question_model = ResourceModel(name=name, tag=tag, type=type, stage=stage)
-        question_model.author = 'admin'
+        question_model.author = 'zc'
         db.session.add(question_model)
         db.session.commit()
         return 'ok', 200
