@@ -52,20 +52,20 @@ class ResList(Resource):
         return 'sucess', 200
 
 
-class Comment(Resource):
+class Com(Resource):
     def get(self):
         pass
 
 
-class CommentList(Resource):
+class ComList(Resource):
     pass
 
 
 api.add_resource(ResList, '/api/res')
 api.add_resource(Res, '/api/res/<res_id>')
 
-api.add_resource(CommentList, '/api/comments')
-api.add_resource(Comment, '/api/comment/<comment_id>')
+api.add_resource(ComList, '/api/coms')
+api.add_resource(Comment, '/api/com/<com_id>')
 
 
 @app.route('/')
