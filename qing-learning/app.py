@@ -173,7 +173,7 @@ def regist():
             telephone = form.telephone.data
             username = form.username.data
             password = form.password1.data
-            user = UserModel(telephone=telephone,username=username,password=password)
+            user = UserModel(telephone=telephone, username=username, password=password)
             db.session.add(user)
             db.session.commit()
             return flask.redirect(flask.url_for('login'))
