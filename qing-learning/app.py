@@ -18,6 +18,7 @@ db.init_app(app)
 
 class Res(Resource):
     def get(self, res_id):
+        info = {}
         res = ResourceModel.query.get(res_id)
         info[res.id] = {
             'id': res.id,
