@@ -57,6 +57,10 @@ class Comment(Resource):
         pass
 
 
+class CommentList(Resource):
+    pass
+
+
 api.add_resource(ResList, '/api/res')
 api.add_resource(Res, '/api/res/<res_id>')
 
