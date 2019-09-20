@@ -57,7 +57,7 @@ class ResList(Resource):
         for res in all_res:
             author_id = res.author_id
             author = UserModel.query.get(author_id).username
-            create_time = str(res.create_time.now())
+            create_time = str(res.create_time)
             info[res.id] = {
                 'id': res.id,
                 'author': author,
