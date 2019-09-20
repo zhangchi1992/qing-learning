@@ -30,10 +30,11 @@ class Res(Resource):
             return {}
         author_id = res.author_id
         author = UserModel.query.get(author_id).username
+        create_time = str(res.create_time.now())
         info[res.id] = {
             'id': res.id,
             'author': author,
-            'create_time': res.create_time,
+            'create_time': create_time,
             'pageviews': res.pageviews,
             'name': res.name,
             'type': res.type,
@@ -56,10 +57,11 @@ class ResList(Resource):
         for res in all_res:
             author_id = res.author_id
             author = UserModel.query.get(author_id).username
+            create_time = str(res.create_time.now())
             info[res.id] = {
                 'id': res.id,
                 'author': author,
-                'create_time': res.create_time,
+                'create_time': create_time,
                 'pageviews': res.pageviews,
                 'name': res.name,
                 'type': res.type,
