@@ -62,6 +62,7 @@ class ResourceModel(db.Model):
     author_id = db.Column(db.String(100), db.ForeignKey('users.id'))
     create_time = db.Column(db.DateTime, default=datetime.datetime.now)
     pageviews = db.Column(db.Integer, default=0)
+    name = db.Column(db.String(100), nullable=False)
     type = db.Column(db.String(100), nullable=False)
     tag = db.Column(db.String(100), nullable=False)
     stage = db.Column(db.String(100), nullable=False)

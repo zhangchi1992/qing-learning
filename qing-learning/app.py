@@ -5,13 +5,63 @@ from exts import db
 import flask
 import config
 from forms import RegistForm
-from models import UserModel,QuestionModel,AnswerModel
+from models import UserModel,QuestionModel,AnswerModel,CommentModel,ResourceModel
 from decorators import login_required
 from sqlalchemy import or_
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
 app.config.from_object(config)
+api = Api(app)
 db.init_app(app)
+
+
+TODOS = {
+    'resource': {'task': 'build an API'},
+    'comment': {'task': '?????'},
+}
+
+
+class Res(Resource):
+    def get(self, res_id):
+        res = ResourceModel.query.get(res_id)
+        return res
+
+    def delete(self, res_id):
+        res = ResourceModel.query.filter(ResourceModel.id == res_id).first()
+        db.session.delete(res)
+        db.session.commit()
+        return 'ok', 200
+
+
+class ResList(Resource):
+    def get(self):
+        all_res = ResourceModel.query.all()
+        return all_res
+
+    def post(self):
+        args = parser.parse_args()
+        type = args['type']
+        tag = args['tag']
+        name = args['name']
+        stage = args['stage']
+        question_model = ResourceModel(name=name, tag=tag, type=type, stage=stage)
+        question_model.author = 'admin'
+        db.session.add(question_model)
+        db.session.commit()
+        return 'sucess', 200
+
+
+class Comment(Resource):
+    def get(self):
+        pass
+
+
+api.add_resource(ResList, '/api/res')
+api.add_resource(Res, '/api/res/<res_id>')
+
+api.add_resource(CommentList, '/api/comments')
+api.add_resource(Comment, '/api/comment/<comment_id>')
 
 
 @app.route('/')
@@ -82,13 +132,13 @@ def login():
             return u'用户名或密码错误！'
 
 
-@app.route('/logout/',methods=['GET'])
+@app.route('/logout/', methods=['GET'])
 def logout():
     flask.session.clear()
     return flask.redirect(flask.url_for('login'))
 
 
-@app.route('/regist/',methods=['GET','POST'])
+@app.route('/regist/', methods=['GET','POST'])
 def regist():
     if flask.request.method == 'GET':
         return flask.render_template('regist.html')
@@ -114,8 +164,8 @@ def before_request():
 
 @app.context_processor
 def context_processor():
-    if hasattr(flask.g,'user'):
-        return {"user":flask.g.user}
+    if hasattr(flask.g, 'user'):
+        return {"user": flask.g.user}
     else:
         return {}
 

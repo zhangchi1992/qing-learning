@@ -5,7 +5,7 @@ from app import app
 from flask_script import Manager
 from exts import db
 import config
-from models import UserModel, QuestionModel, AnswerModel
+from models import UserModel, QuestionModel, AnswerModel, ResourceModel, CommentModel
 
 app.config.from_object(config)
 db.init_app(app)
@@ -13,7 +13,7 @@ db.init_app(app)
 
 manager = Manager(app)
 
-migrate = Migrate(app,db)
+migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
 
