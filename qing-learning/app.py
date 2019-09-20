@@ -16,12 +16,6 @@ api = Api(app)
 db.init_app(app)
 
 
-TODOS = {
-    'resource': {'task': 'build an API'},
-    'comment': {'task': '?????'},
-}
-
-
 class Res(Resource):
     def get(self, res_id):
         res = ResourceModel.query.get(res_id)
@@ -37,6 +31,19 @@ class Res(Resource):
 class ResList(Resource):
     def get(self):
         all_res = ResourceModel.query.all()
+        info = {}
+        for res in all_res:
+            info[res.id] = {
+                'id': res.id,
+                'author_id': res.author_id,
+                'create_time': res.create_time,
+                'pageviews': res.pageviews,
+                'name': res.name,
+                'type': res.type,
+                'tag': res.tag,
+                'stage': res.stage,
+            }
+        print all_res
         return all_res
 
     def post(self):
