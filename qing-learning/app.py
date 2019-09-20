@@ -43,8 +43,8 @@ class ResList(Resource):
                 'tag': res.tag,
                 'stage': res.stage,
             }
-        print all_res
-        return all_res
+        print info
+        return info
 
     def post(self):
         args = parser.parse_args()
