@@ -22,9 +22,11 @@ class Res(Resource):
         res = ResourceModel.query.get(res_id)
         if not res:
             return {}
+        author_id = res.author_id
+        author = UserModel.query.get(author_id).username
         info[res.id] = {
             'id': res.id,
-            'author_id': res.author_id,
+            'author': author,
             'create_time': res.create_time,
             'pageviews': res.pageviews,
             'name': res.name,
@@ -68,7 +70,7 @@ class ResList(Resource):
         question_model.author = 'admin'
         db.session.add(question_model)
         db.session.commit()
-        return 'sucess', 200
+        return 'ok', 200
 
 
 class Com(Resource):
