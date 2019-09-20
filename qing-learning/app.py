@@ -8,7 +8,7 @@ from forms import RegistForm
 from models import UserModel,QuestionModel,AnswerModel,CommentModel,ResourceModel
 from decorators import login_required
 from sqlalchemy import or_
-from flask_restful import Api, Resource, parser
+from flask_restful import Api, Resource, reqparse
 
 app = Flask(__name__)
 app.config.from_object(config)
