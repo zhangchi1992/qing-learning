@@ -156,7 +156,7 @@ api.add_resource(Res, '/api/res/<res_id>')
 api.add_resource(ComList, '/api/coms')
 api.add_resource(Com, '/api/com/<com_id>')
 
-api.add_resource(QingLogin, '/api/login/account')
+api.add_resource(QingLogin, '/login/account')
 
 
 @app.route('/')
