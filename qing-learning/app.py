@@ -20,6 +20,8 @@ parser.add_argument('type', type=str)
 parser.add_argument('tag', type=str)
 parser.add_argument('name', type=str)
 parser.add_argument('stage', type=str)
+parser.add_argument('username', type=str)
+parser.add_argument('password', type=str)
 
 
 class Res(Resource):
@@ -84,12 +86,68 @@ class ResList(Resource):
 
 
 class Com(Resource):
-    def get(self):
-        pass
+    def delete(self, com_id):
+        com = CommentModel.query.get(com_id)
+        db.session.delete(com)
+        db.session.commit()
+        return 'ok', 200
 
 
 class ComList(Resource):
-    pass
+    def get(self):
+        all_res = ""
+        args = parser.parse_args()
+        resource_id = args.get("resource_id")
+        if resource_id:
+            all_res = CommentModel.query.filter_by(resource_id=resource_id).all()
+        if not all_res:
+            all_res = CommentModel.query.all()
+        info = {}
+        for res in all_res:
+            author_id = res.author_id
+            author = UserModel.query.get(author_id).username
+            info[res.id] = {
+                'id': res.id,
+                'content': res.content,
+                'create_time': str(res.create_time),
+                'resource_id': res.resource_id,
+                'author': author
+            }
+        return info
+
+    def post(self):
+        args = parser.parse_args()
+        content = args['content']
+        resource_id = args['resource_id']
+        username = args['author_id']
+        comment_model = CommentModel(content=content, resource_id=resource_id)
+        comment_model.author = UserModel.query.filter_by(username=username).first()
+        db.session.add(comment_model)
+        db.session.commit()
+        return 'ok', 200
+
+
+class QingLogin(Resource):
+    def post(self):
+        args = parser.parse_args()
+        password = args['password']
+        username = args['userName']
+        user = UserModel.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            res = {
+                'status': 'ok',
+                'type': 'ok',
+                'currentAuthority': 'admin',
+
+            }
+            return res
+        else:
+            res = {
+                'status': 'error',
+                'type': 'ok',
+                'currentAuthority': 'guest',
+            }
+            return res
 
 
 api.add_resource(ResList, '/api/res')
@@ -97,6 +155,8 @@ api.add_resource(Res, '/api/res/<res_id>')
 
 api.add_resource(ComList, '/api/coms')
 api.add_resource(Com, '/api/com/<com_id>')
+
+api.add_resource(QingLogin, '/api/login/account')
 
 
 @app.route('/')
