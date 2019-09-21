@@ -1151,7 +1151,6 @@ def index():
 
 
 @app.route('/question/',methods=['GET','POST'])
-@login_required
 def question():
     if flask.request.method == 'GET':
         return flask.render_template('question.html')
@@ -1172,7 +1171,6 @@ def detail(id):
 
 
 @app.route('/comment/',methods=['POST'])
-@login_required
 def comment():
     question_id = flask.request.form.get('question_id')
     content = flask.request.form.get('content')
