@@ -1150,7 +1150,7 @@ def index():
     return flask.render_template('index.html',**context)
 
 
-@app.route('/question/',methods=['GET','POST'])
+@app.route('/question/', methods=['GET', 'POST'])
 def question():
     if flask.request.method == 'GET':
         return flask.render_template('question.html')
@@ -1158,7 +1158,7 @@ def question():
         title = flask.request.form.get('title')
         content = flask.request.form.get('content')
         question_model = QuestionModel(title=title,content=content)
-        question_model.author = flask.g.user
+        question_model.author = UserModel.query.filter_by(username='zhangchi').first()
         db.session.add(question_model)
         db.session.commit()
         return flask.redirect(flask.url_for('index'))
@@ -1170,12 +1170,12 @@ def detail(id):
     return flask.render_template('detail.html',question=question_model)
 
 
-@app.route('/comment/',methods=['POST'])
+@app.route('/comment/', methods=['POST'])
 def comment():
     question_id = flask.request.form.get('question_id')
     content = flask.request.form.get('content')
     answer_model = AnswerModel(content=content)
-    answer_model.author = flask.g.user
+    answer_model.author = UserModel.query.filter_by(username='zhangchi').first()
     answer_model.question = QuestionModel.query.get(question_id)
     db.session.add(answer_model)
     db.session.commit()
