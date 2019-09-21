@@ -20,7 +20,7 @@ parser.add_argument('type', type=str)
 parser.add_argument('tag', type=str)
 parser.add_argument('name', type=str)
 parser.add_argument('stage', type=str)
-parser.add_argument('username', type=str)
+parser.add_argument('userName', type=str)
 parser.add_argument('password', type=str)
 
 
