@@ -492,7 +492,7 @@ api.add_resource(Com, '/api/com/<com_id>')
 
 api.add_resource(QingLogin, '/api/login/account')
 api.add_resource(CurrentUser, '/api/currentUser')
-api.add_resource(GetList, 'api/fake_list')
+api.add_resource(GetList, '/api/fake_list')
 
 
 @app.route('/')
