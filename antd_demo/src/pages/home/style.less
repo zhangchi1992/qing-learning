@@ -1,0 +1,123 @@
+@import '~antd/es/style/themes/default.less';
+@import './utils/utils.less';
+
+.home {
+  .homeHeader {
+    height: 200px;
+  }
+}
+
+.homeMain {
+  display: flex;
+
+  .homeLeft {
+    flex: 1;
+    padding-right: 20px;
+
+    h2 {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #4D555D;
+    }
+  }
+
+  .homeRight {
+    width: 300px;
+    padding-left: 20px;
+    border-left: 0.5px solid rgba(0, 0, 0, 0.65);
+    :global {
+      .ant-card {
+        margin-bottom: 6px;
+      }
+      .ant-card-body {
+        padding: 3px 5px;
+      }
+    }
+    .hotVideoTitle {
+      font-size: 20px;
+      font-weight: 600;
+      color: #4D555D;
+    }
+  }
+
+  .mainTitle {
+    height: 100px;
+    background: rgb(69, 154, 208);
+    border-radius: 30px;
+    font-size: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.coverCardList {
+  margin-bottom: -24px;
+
+  .card {
+    :global {
+      .ant-card-body {
+        padding: 16px 16px 0;
+      }
+
+      .anticon {
+        margin-right: 4px;
+      }
+      
+      .ant-card-meta-title {
+        margin-bottom: 4px;
+        & > a {
+          display: inline-block;
+          max-width: 100%;
+          color: @heading-color;
+        }
+      }
+      .ant-card-meta-description {
+        height: 44px;
+        overflow: hidden;
+        line-height: 22px;
+      }
+    }
+
+    &:hover {
+      :global {
+        .ant-card-meta-title > a {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .cardDesc {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cardItemContent {
+    display: flex;
+    height: 20px;
+    margin-top: 16px;
+    margin-bottom: -4px;
+    line-height: 20px;
+    & > span {
+      flex: 1;
+      color: @text-color-secondary;
+      font-size: 12px;
+    }
+    .avatarList {
+      flex: 0 1 auto;
+    }
+  }
+  .cardList {
+    margin-top: 24px;
+  }
+
+  :global {
+    .ant-list .ant-list-item-content-single {
+      max-width: 100%;
+    }
+  }
+}
